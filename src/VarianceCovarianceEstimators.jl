@@ -59,7 +59,7 @@ function StatsBase.vcov(model::StatsBase.RegressionModel,
     mm = StatsBase.modelmatrix(model)
     Bread = bread(model)
     û = StatsBase.residuals(model)
-    G = BitMatrix(zeros(size(X, 1), size(X, 1)))
+    G = BitMatrix(zeros(size(mm, 1), size(mm, 1)))
     for dimension ∈ Clusters
         for level ∈ dimension
             for comparison ∈ dimension
