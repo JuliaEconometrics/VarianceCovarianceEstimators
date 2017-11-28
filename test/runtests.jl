@@ -28,7 +28,7 @@ makegroups(obj::AbstractVector) =
 groups = makegroups.([PID, TID])
 
 V = vcov(model, :OLS)
-@test mapreduce(idx -> V[idx:end, idx], vcat, 1:size(V, 1)) ==
+@test mapreduce(idx -> V[idx:end, idx], vcat, 1:size(V, 1)) ≈
     [0.016812950819883037,
     -0.013785344698385674,
     -0.015506005910982551,
