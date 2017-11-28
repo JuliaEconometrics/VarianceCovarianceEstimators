@@ -83,7 +83,8 @@ function StatsBase.vcov(model::StatsBase.RegressionModel,
         end
     end
     output = Bread * mm.' * (û * û.' .* G) * mm * Bread
-    g = length(unique(map(col -> find(G[:,col]), 1:size(G, 2))))
+    # g = length(unique(map(col -> find(G[:,col]), 1:size(G, 2))))
+	g = minimum(length.(Clusters))
     rdf = StatsBase.dof_residual(model)
     output .*= g / (g - 1) * (StatsBase.nobs(model) - 1) / rdf
     return output, min(rdf, g - 1)
