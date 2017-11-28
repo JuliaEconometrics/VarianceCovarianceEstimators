@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "VarianceCovarianceEstimators.jl Documentation\n\n\nVarianceCovarianceEstimators.jl\n allows estimation of variance covariance matrices for \nStatsBase.RegressionModel\n.\n\n\n\n\nGetting Started\n\n\nInstallation\n\n\nFor Package Developers\n\n\n\n\n\n\nAPI\n\n\nEstimators\n\n\nvcov\n\n\n\n\n\n\nExamples\n\n\nReferences", 
+            "text": "VarianceCovarianceEstimators.jl Documentation\n\n\nVarianceCovarianceEstimators.jl\n allows estimation of variance covariance matrices for \nStatsBase.RegressionModel\n.\n\n\n\n\nGetting Started\n\n\nInstallation\n\n\nFor Package Developers\n\n\n\n\n\n\nAPI\n\n\nEstimators\n\n\nvcov\n\n\n\n\n\n\nExamples\n\n\nSpherical Errors\n\n\nHeteroscedasticity Consistent Estimators\n\n\nCluster Robust Variance Covariance Estimators (multi-way clustering)\n\n\n\n\n\n\nReferences", 
             "title": "Home"
         }, 
         {
             "location": "/#variancecovarianceestimatorsjl-documentation", 
-            "text": "VarianceCovarianceEstimators.jl  allows estimation of variance covariance matrices for  StatsBase.RegressionModel .   Getting Started  Installation  For Package Developers    API  Estimators  vcov    Examples  References", 
+            "text": "VarianceCovarianceEstimators.jl  allows estimation of variance covariance matrices for  StatsBase.RegressionModel .   Getting Started  Installation  For Package Developers    API  Estimators  vcov    Examples  Spherical Errors  Heteroscedasticity Consistent Estimators  Cluster Robust Variance Covariance Estimators (multi-way clustering)    References", 
             "title": "VarianceCovarianceEstimators.jl Documentation"
         }, 
         {
@@ -52,13 +52,58 @@
         }, 
         {
             "location": "/Examples/", 
-            "text": "Examples\n\n\n\n\nOLS\n\n\n\n\n```@example Tutorial\nvcov(model, :OLS)\n\n\n\n\n  * HC1\n\n\n```@example Tutorial\nvcov(model, :HC1)\n\n\n\n\n\n\nHC2\n\n\n\n\n```@example Tutorial\nvcov(model, :HC2)\n\n\n\n\n  * HC3\n\n\n```@example Tutorial\nvcov(model, :HC3)\n\n\n\n\nTwo-ways clustering returns \nV, rdf\n where \nV\n is the variance covariance estimate and \nrdf\n is the \ndof_residual\n based on the error structure.\n\n\n\n\nCRVE1\n\n\n\n\n```@example Tutorial\n\n\nV, rdf = vcov(model, :HC1)\nprint(V)\n\n\n\n\n  * CRVE2\n\n\n```@example Tutorial\n\nV, rdf = vcov(model, :HC2)\nprint(V)\n\n\n\n\n\n\n\nCRVE3\n\n\n\n\n```@example Tutorial\n\n\nV, rdf = vcov(model, :HC3)\nprint(V)\n\n\n```", 
+            "text": "Examples\n\n\n\n\nSpherical Errors\n\n\nvcov(model, :OLS)\n\n\n\n\n3\u00d73 Array{Float64,2}:\n  0.016813   -0.0137853   -0.015506\n -0.0137853   0.0239814    0.00324634\n -0.015506    0.00324634   0.0280499\n\n\n\n\n\n\nHeteroscedasticity Consistent Estimators\n\n\n\n\nHC1\n\n\nvcov(model, :HC1)\n\n\n\n\n3\u00d73 Array{Float64,2}:\n  0.0172875  -0.01399     -0.0157613\n -0.01399     0.0250724    0.00366193\n -0.0157613   0.00366193   0.0259826\n\n\n\n\n\n\nHC2\n\n\nvcov(model, :HC2)\n\n\n\n\n3\u00d73 Array{Float64,2}:\n  0.0173974  -0.0140871   -0.0158684\n -0.0140871   0.0252558    0.00365211\n -0.0158684   0.00365211   0.026195\n\n\n\n\n\n\nHC3\n\n\nvcov(model, :HC3)\n\n\n\n\n3\u00d73 Array{Float64,2}:\n  0.0180518  -0.0146251   -0.0164725\n -0.0146251   0.0262308    0.00375457\n -0.0164725   0.00375457   0.0272297\n\n\n\n\n\n\nCluster Robust Variance Covariance Estimators (multi-way clustering)\n\n\nVarianceCovarianceEstimators.clusters(obj::MyModel) = groups\n\n\n\n\n\n\nCRVE1\n\n\nV, rdf = vcov(model, :HC1)\nV\n\n\n\n\n3\u00d73 Array{Float64,2}:\n 0.00911633   0.00552404   0.00316669\n 0.00552404   0.0143093   -0.0170055\n 0.00316669  -0.0170055    0.00115659\n\n\n\n\n\n\nCRVE2\n\n\nV, rdf = vcov(model, :HC2)\nV\n\n\n\n\n3\u00d73 Array{Float64,2}:\n 0.0109466    0.00590645   0.00447055\n 0.00590645   0.0174035   -0.0205368\n 0.00447055  -0.0205368    0.000371317\n\n\n\n\n\n\nCRVE3\n\n\nV, rdf = vcov(model, :HC3)\nV\n\n\n\n\n3\u00d73 Array{Float64,2}:\n 0.0133868    0.00603574   0.00611516\n 0.00603574   0.0213903   -0.0247667\n 0.00611516  -0.0247667   -0.000805412", 
             "title": "Examples"
         }, 
         {
             "location": "/Examples/#examples", 
-            "text": "OLS   ```@example Tutorial\nvcov(model, :OLS)  \n\n  * HC1\n\n\n```@example Tutorial\nvcov(model, :HC1)   HC2   ```@example Tutorial\nvcov(model, :HC2)  \n\n  * HC3\n\n\n```@example Tutorial\nvcov(model, :HC3)  Two-ways clustering returns  V, rdf  where  V  is the variance covariance estimate and  rdf  is the  dof_residual  based on the error structure.   CRVE1   ```@example Tutorial  V, rdf = vcov(model, :HC1)\nprint(V)  \n\n  * CRVE2\n\n\n```@example Tutorial\n\nV, rdf = vcov(model, :HC2)\nprint(V)   CRVE3   ```@example Tutorial  V, rdf = vcov(model, :HC3)\nprint(V)  ```", 
+            "text": "", 
             "title": "Examples"
+        }, 
+        {
+            "location": "/Examples/#spherical-errors", 
+            "text": "vcov(model, :OLS)  3\u00d73 Array{Float64,2}:\n  0.016813   -0.0137853   -0.015506\n -0.0137853   0.0239814    0.00324634\n -0.015506    0.00324634   0.0280499", 
+            "title": "Spherical Errors"
+        }, 
+        {
+            "location": "/Examples/#heteroscedasticity-consistent-estimators", 
+            "text": "", 
+            "title": "Heteroscedasticity Consistent Estimators"
+        }, 
+        {
+            "location": "/Examples/#hc1", 
+            "text": "vcov(model, :HC1)  3\u00d73 Array{Float64,2}:\n  0.0172875  -0.01399     -0.0157613\n -0.01399     0.0250724    0.00366193\n -0.0157613   0.00366193   0.0259826", 
+            "title": "HC1"
+        }, 
+        {
+            "location": "/Examples/#hc2", 
+            "text": "vcov(model, :HC2)  3\u00d73 Array{Float64,2}:\n  0.0173974  -0.0140871   -0.0158684\n -0.0140871   0.0252558    0.00365211\n -0.0158684   0.00365211   0.026195", 
+            "title": "HC2"
+        }, 
+        {
+            "location": "/Examples/#hc3", 
+            "text": "vcov(model, :HC3)  3\u00d73 Array{Float64,2}:\n  0.0180518  -0.0146251   -0.0164725\n -0.0146251   0.0262308    0.00375457\n -0.0164725   0.00375457   0.0272297", 
+            "title": "HC3"
+        }, 
+        {
+            "location": "/Examples/#cluster-robust-variance-covariance-estimators-multi-way-clustering", 
+            "text": "VarianceCovarianceEstimators.clusters(obj::MyModel) = groups", 
+            "title": "Cluster Robust Variance Covariance Estimators (multi-way clustering)"
+        }, 
+        {
+            "location": "/Examples/#crve1", 
+            "text": "V, rdf = vcov(model, :HC1)\nV  3\u00d73 Array{Float64,2}:\n 0.00911633   0.00552404   0.00316669\n 0.00552404   0.0143093   -0.0170055\n 0.00316669  -0.0170055    0.00115659", 
+            "title": "CRVE1"
+        }, 
+        {
+            "location": "/Examples/#crve2", 
+            "text": "V, rdf = vcov(model, :HC2)\nV  3\u00d73 Array{Float64,2}:\n 0.0109466    0.00590645   0.00447055\n 0.00590645   0.0174035   -0.0205368\n 0.00447055  -0.0205368    0.000371317", 
+            "title": "CRVE2"
+        }, 
+        {
+            "location": "/Examples/#crve3", 
+            "text": "V, rdf = vcov(model, :HC3)\nV  3\u00d73 Array{Float64,2}:\n 0.0133868    0.00603574   0.00611516\n 0.00603574   0.0213903   -0.0247667\n 0.00611516  -0.0247667   -0.000805412", 
+            "title": "CRVE3"
         }, 
         {
             "location": "/References/", 

@@ -8,7 +8,7 @@
   
   <meta name="author" content="José Bayoán Santiago Calderón">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Examples - UEM.jl</title>
+  <title>Examples - VarianceCovarianceEstimators.jl</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -36,7 +36,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> UEM.jl</a>
+        <a href=".." class="icon icon-home"> VarianceCovarianceEstimators.jl</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -70,6 +70,16 @@
             
     <li class="toctree-l2"><a href="#examples">Examples</a></li>
     
+        <ul>
+        
+            <li><a class="toctree-l3" href="#spherical-errors">Spherical Errors</a></li>
+        
+            <li><a class="toctree-l3" href="#heteroscedasticity-consistent-estimators">Heteroscedasticity Consistent Estimators</a></li>
+        
+            <li><a class="toctree-l3" href="#cluster-robust-variance-covariance-estimators-multi-way-clustering">Cluster Robust Variance Covariance Estimators (multi-way clustering)</a></li>
+        
+        </ul>
+    
 
     </ul>
 	    </li>
@@ -89,7 +99,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">UEM.jl</a>
+        <a href="..">VarianceCovarianceEstimators.jl</a>
       </nav>
 
       
@@ -116,60 +126,92 @@
               
                 <p><a id='Examples-1'></a></p>
 <h1 id="examples">Examples</h1>
-<ul>
-<li>OLS</li>
-</ul>
-<p>```@example Tutorial
-vcov(model, :OLS)</p>
-<pre><code>
-
-  * HC1
-
-
-```@example Tutorial
-vcov(model, :HC1)
+<p><a id='Spherical-Errors-1'></a></p>
+<h2 id="spherical-errors">Spherical Errors</h2>
+<pre><code class="julia">vcov(model, :OLS)
 </code></pre>
 
-<ul>
-<li>HC2</li>
-</ul>
-<p>```@example Tutorial
-vcov(model, :HC2)</p>
-<pre><code>
-
-  * HC3
-
-
-```@example Tutorial
-vcov(model, :HC3)
+<pre><code>3×3 Array{Float64,2}:
+  0.016813   -0.0137853   -0.015506
+ -0.0137853   0.0239814    0.00324634
+ -0.015506    0.00324634   0.0280499
 </code></pre>
 
-<p>Two-ways clustering returns <code>V, rdf</code> where <code>V</code> is the variance covariance estimate and <code>rdf</code> is the <code>dof_residual</code> based on the error structure.</p>
-<ul>
-<li>CRVE1</li>
-</ul>
-<p>```@example Tutorial</p>
-<p>V, rdf = vcov(model, :HC1)
-print(V)</p>
-<pre><code>
-
-  * CRVE2
-
-
-```@example Tutorial
-
-V, rdf = vcov(model, :HC2)
-print(V)
-
+<p><a id='Heteroscedasticity-Consistent-Estimators-1'></a></p>
+<h2 id="heteroscedasticity-consistent-estimators">Heteroscedasticity Consistent Estimators</h2>
+<p><a id='HC1-1'></a></p>
+<h3 id="hc1">HC1</h3>
+<pre><code class="julia">vcov(model, :HC1)
 </code></pre>
 
-<ul>
-<li>CRVE3</li>
-</ul>
-<p>```@example Tutorial</p>
-<p>V, rdf = vcov(model, :HC3)
-print(V)</p>
-<p>```</p>
+<pre><code>3×3 Array{Float64,2}:
+  0.0172875  -0.01399     -0.0157613
+ -0.01399     0.0250724    0.00366193
+ -0.0157613   0.00366193   0.0259826
+</code></pre>
+
+<p><a id='HC2-1'></a></p>
+<h3 id="hc2">HC2</h3>
+<pre><code class="julia">vcov(model, :HC2)
+</code></pre>
+
+<pre><code>3×3 Array{Float64,2}:
+  0.0173974  -0.0140871   -0.0158684
+ -0.0140871   0.0252558    0.00365211
+ -0.0158684   0.00365211   0.026195
+</code></pre>
+
+<p><a id='HC3-1'></a></p>
+<h3 id="hc3">HC3</h3>
+<pre><code class="julia">vcov(model, :HC3)
+</code></pre>
+
+<pre><code>3×3 Array{Float64,2}:
+  0.0180518  -0.0146251   -0.0164725
+ -0.0146251   0.0262308    0.00375457
+ -0.0164725   0.00375457   0.0272297
+</code></pre>
+
+<p><a id='Cluster-Robust-Variance-Covariance-Estimators-(multi-way-clustering)-1'></a></p>
+<h2 id="cluster-robust-variance-covariance-estimators-multi-way-clustering">Cluster Robust Variance Covariance Estimators (multi-way clustering)</h2>
+<pre><code class="julia">VarianceCovarianceEstimators.clusters(obj::MyModel) = groups
+</code></pre>
+
+<p><a id='CRVE1-1'></a></p>
+<h3 id="crve1">CRVE1</h3>
+<pre><code class="julia">V, rdf = vcov(model, :HC1)
+V
+</code></pre>
+
+<pre><code>3×3 Array{Float64,2}:
+ 0.00911633   0.00552404   0.00316669
+ 0.00552404   0.0143093   -0.0170055
+ 0.00316669  -0.0170055    0.00115659
+</code></pre>
+
+<p><a id='CRVE2-1'></a></p>
+<h3 id="crve2">CRVE2</h3>
+<pre><code class="julia">V, rdf = vcov(model, :HC2)
+V
+</code></pre>
+
+<pre><code>3×3 Array{Float64,2}:
+ 0.0109466    0.00590645   0.00447055
+ 0.00590645   0.0174035   -0.0205368
+ 0.00447055  -0.0205368    0.000371317
+</code></pre>
+
+<p><a id='CRVE3-1'></a></p>
+<h3 id="crve3">CRVE3</h3>
+<pre><code class="julia">V, rdf = vcov(model, :HC3)
+V
+</code></pre>
+
+<pre><code>3×3 Array{Float64,2}:
+ 0.0133868    0.00603574   0.00611516
+ 0.00603574   0.0213903   -0.0247667
+ 0.00611516  -0.0247667   -0.000805412
+</code></pre>
               
             </div>
           </div>
