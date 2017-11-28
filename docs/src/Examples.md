@@ -27,17 +27,25 @@ StatsBase.nobs(obj::MyModel) = length(StatsBase.residuals(obj))
 groups = EconUtils.makegroups(df[[:PID, :TID]])
 ```
 
+- OLS
+
 ```@example Tutorial
 vcov(model, :OLS)
 ```
+
+- HC1
 
 ```@example Tutorial
 vcov(model, :HC1)
 ```
 
+- HC2
+
 ```@example Tutorial
 vcov(model, :HC2)
 ```
+
+- HC3
 
 ```@example Tutorial
 vcov(model, :HC3)
@@ -50,15 +58,21 @@ and `rdf` is the `dof_residual` based on the error structure.
 VarianceCovarianceEstimators.clusters(obj::MyModel) = groups
 ```
 
+- CRVE1
+
 ```@example Tutorial
 V, rdf = vcov(model, :HC1)
 V
 ```
 
+- CRVE2
+
 ```@example Tutorial
 V, rdf = vcov(model, :HC2)
 V
 ```
+
+- CRVE3
 
 ```@example Tutorial
 V, rdf = vcov(model, :HC3)

@@ -17,6 +17,4 @@ after_success:
   - julia -e 'Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
   # push documentation
   - julia -e 'Pkg.clone("https://github.com/Nosferican/Documenter.jl")'
-  - julia -e 'Pkg.add("DataFrames")'
-  - julia -e 'Pkg.clone("https://github.com/JuliaEconometrics/EconUtils.jl")'
   - julia -e 'cd(Pkg.dir("VarianceCovarianceEstimators")); include(joinpath("docs", "make.jl"))'
