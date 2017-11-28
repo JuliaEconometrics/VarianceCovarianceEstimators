@@ -4,7 +4,7 @@
 CurrentModule = VarianceCovarianceEstimators
 ```
 
-*VarianceCovarianceEstimators.jl* allows estimation of variance covariance matrices for `StatsBase.RegressionModel`.
+*VarianceCovarianceEstimators.jl* allows estimation of variance covariance matrices for ``StatsBase.RegressionModel``.
 
 ```@contents
 Pages = ["GettingStarted.md",
