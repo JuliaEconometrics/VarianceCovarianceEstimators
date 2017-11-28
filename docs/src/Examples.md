@@ -61,20 +61,26 @@ VarianceCovarianceEstimators.clusters(obj::MyModel) = groups
 - CRVE1
 
 ```@example Tutorial
+
 V, rdf = vcov(model, :HC1)
-V
+print(V)
+
 ```
 
 - CRVE2
 
 ```@example Tutorial
+
 V, rdf = vcov(model, :HC2)
-V
+print(V)
+
 ```
 
 - CRVE3
 
 ```@example Tutorial
+
 V, rdf = vcov(model, :HC3)
-V
+print(V)
+
 ```
