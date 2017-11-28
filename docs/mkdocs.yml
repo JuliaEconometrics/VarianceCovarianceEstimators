@@ -1,4 +1,4 @@
-site_name:        UEM.jl
+site_name:        VarianceCovarianceEstimators.jl
 repo_url:         https://github.com/JuliaEconometrics/VarianceCovarianceEstimators.jl
 site_description: Variance Covariance Estimators Docs
 site_author:      José Bayoán Santiago Calderón

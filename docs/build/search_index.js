@@ -93,7 +93,79 @@ var documenterSearchIndex = {"docs": [
     "page": "Examples",
     "title": "Examples",
     "category": "section",
-    "text": "srand(0)\nusing StatsBase\nusing DataFrames\nusing EconUtils\nusing VarianceCovarianceEstimators\ndf = DataFrame(PID = repeat(1:10, inner = 10), TID = repeat(1:10, outer = 10),\n    X1 = rand(100), X2 = rand(100), X3 = rand(100))\ndf[:y] = (Matrix(df[[:X1, :X2, :X3]]) * ones(3,1) .+ repeat(rand(10), inner = 10) .+ repeat(rand(10), outer = 10) .+ rand(100))[:]\nX = hcat(ones(100), Matrix(df[[:X1, :X2, :X3]]))\ny = Vector(df[:y])\nβ = X \\ y\nŷ = X * β\nû = y - ŷ\nmutable struct MyModel <: StatsBase.RegressionModel\n    mm::Matrix{Float64}\n    û::Vector{Float64}\nend\nmodel = MyModel(X, û)\nStatsBase.modelmatrix(obj::MyModel) = getfield(obj, :mm)\nStatsBase.residuals(obj::MyModel) = getfield(obj, :û)\nStatsBase.dof_residual(obj::MyModel) = reduce(-, size(StatsBase.modelmatrix(obj)))\nStatsBase.deviance(obj::MyModel) = StatsBase.residuals(obj).'StatsBase.residuals(obj) / StatsBase.dof_residual(obj)\nStatsBase.nobs(obj::MyModel) = length(StatsBase.residuals(obj))\ngroups = EconUtils.makegroups(df[[:PID, :TID]])vcov(model, :OLS)vcov(model, :HC1)vcov(model, :HC2)vcov(model, :HC3)Two-ways clustering returns V, rdf where V is the variance covariance estimate and rdf is the dof_residual based on the error structure.VarianceCovarianceEstimators.clusters(obj::MyModel) = groupsV, rdf = vcov(model, :HC1)\nVV, rdf = vcov(model, :HC2)\nVV, rdf = vcov(model, :HC3)\nV"
+    "text": "srand(0)\nusing StatsBase\nusing VarianceCovarianceEstimators\n\nPID = repeat(1:10, inner = 10)\nTID = repeat(1:10, outer = 10)\nX = hcat(ones(100), rand(100, 2))\ny = (X * ones(3,1) + repeat(rand(10), inner = 10) + repeat(rand(10), outer = 10) + rand(100))[:]\nβ = X \\ y\nŷ = X * β\nû = Vector(y - ŷ)\n\nmutable struct MyModel <: StatsBase.RegressionModel\nend\n\nmodel = MyModel()\nStatsBase.modelmatrix(obj::MyModel) = X\nStatsBase.residuals(obj::MyModel) = û\nStatsBase.dof_residual(obj::MyModel) = reduce(-, size(StatsBase.modelmatrix(obj)))\nStatsBase.deviance(obj::MyModel) = StatsBase.residuals(obj).'StatsBase.residuals(obj) / StatsBase.dof_residual(obj)\nStatsBase.nobs(obj::MyModel) = length(StatsBase.residuals(obj))\n\ngroups = map(obj -> find.(map(val -> obj .== val, unique(obj))), [PID, TID])"
+},
+
+{
+    "location": "Examples.html#Spherical-Errors-1",
+    "page": "Examples",
+    "title": "Spherical Errors",
+    "category": "section",
+    "text": "vcov(model, :OLS)"
+},
+
+{
+    "location": "Examples.html#Heteroscedasticity-Consistent-Estimators-1",
+    "page": "Examples",
+    "title": "Heteroscedasticity Consistent Estimators",
+    "category": "section",
+    "text": ""
+},
+
+{
+    "location": "Examples.html#HC1-1",
+    "page": "Examples",
+    "title": "HC1",
+    "category": "section",
+    "text": "vcov(model, :HC1)"
+},
+
+{
+    "location": "Examples.html#HC2-1",
+    "page": "Examples",
+    "title": "HC2",
+    "category": "section",
+    "text": "vcov(model, :HC2)"
+},
+
+{
+    "location": "Examples.html#HC3-1",
+    "page": "Examples",
+    "title": "HC3",
+    "category": "section",
+    "text": "vcov(model, :HC3)"
+},
+
+{
+    "location": "Examples.html#Cluster-Robust-Variance-Covariance-Estimators-(multi-way-clustering)-1",
+    "page": "Examples",
+    "title": "Cluster Robust Variance Covariance Estimators (multi-way clustering)",
+    "category": "section",
+    "text": "VarianceCovarianceEstimators.clusters(obj::MyModel) = groups"
+},
+
+{
+    "location": "Examples.html#CRVE1-1",
+    "page": "Examples",
+    "title": "CRVE1",
+    "category": "section",
+    "text": "V, rdf = vcov(model, :HC1)\nV"
+},
+
+{
+    "location": "Examples.html#CRVE2-1",
+    "page": "Examples",
+    "title": "CRVE2",
+    "category": "section",
+    "text": "V, rdf = vcov(model, :HC2)\nV"
+},
+
+{
+    "location": "Examples.html#CRVE3-1",
+    "page": "Examples",
+    "title": "CRVE3",
+    "category": "section",
+    "text": "V, rdf = vcov(model, :HC3)\nV"
 },
 
 {
