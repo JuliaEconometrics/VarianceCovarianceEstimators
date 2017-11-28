@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "VarianceCovarianceEstimators.jl Documentation\n\n\nVarianceCovarianceEstimators.jl\n allows estimation of variance covariance matrices for \nStatsBase.RegressionModel\n.\n\n\n\n\nGetting Started\n\n\nInstallation\n\n\nFor Package Developers\n\n\n\n\n\n\nAPI\n\n\nEstimators\n\n\n$vcov$\n\n\n\n\n\n\nExamples\n\n\nSpherical Errors\n\n\nHeteroscedasticity Consistent Estimators\n\n\nCluster Robust Variance Covariance Estimators (multi-way clustering)\n\n\n\n\n\n\nReferences", 
+            "text": "VarianceCovarianceEstimators.jl Documentation\n\n\nVarianceCovarianceEstimators.jl\n allows estimation of variance covariance matrices for $StatsBase.RegressionModel$.\n\n\n\n\nGetting Started\n\n\nInstallation\n\n\nFor Package Developers\n\n\n\n\n\n\nAPI\n\n\nEstimators\n\n\n$vcov$\n\n\n\n\n\n\nExamples\n\n\nSpherical Errors\n\n\nHeteroscedasticity Consistent Estimators\n\n\nCluster Robust Variance Covariance Estimators (multi-way clustering)\n\n\n\n\n\n\nReferences", 
             "title": "Home"
         }, 
         {
             "location": "/#variancecovarianceestimatorsjl-documentation", 
-            "text": "VarianceCovarianceEstimators.jl  allows estimation of variance covariance matrices for  StatsBase.RegressionModel .   Getting Started  Installation  For Package Developers    API  Estimators  $vcov$    Examples  Spherical Errors  Heteroscedasticity Consistent Estimators  Cluster Robust Variance Covariance Estimators (multi-way clustering)    References", 
+            "text": "VarianceCovarianceEstimators.jl  allows estimation of variance covariance matrices for $StatsBase.RegressionModel$.   Getting Started  Installation  For Package Developers    API  Estimators  $vcov$    Examples  Spherical Errors  Heteroscedasticity Consistent Estimators  Cluster Robust Variance Covariance Estimators (multi-way clustering)    References", 
             "title": "VarianceCovarianceEstimators.jl Documentation"
         }, 
         {
