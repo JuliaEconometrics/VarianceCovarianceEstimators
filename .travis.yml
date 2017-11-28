@@ -3,7 +3,7 @@ language: julia
 os:
   - linux
 julia:
-  - 0.7.0-DEV.2279
+  - nightly
 notifications:
   email: false
 # uncomment the following lines to override the default test script
