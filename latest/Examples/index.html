@@ -116,33 +116,54 @@
               
                 <p><a id='Examples-1'></a></p>
 <h1 id="examples">Examples</h1>
+<ul>
+<li>OLS</li>
+</ul>
 <p>```@example Tutorial
 vcov(model, :OLS)</p>
 <pre><code>
+
+  * HC1
+
 
 ```@example Tutorial
 vcov(model, :HC1)
 </code></pre>
 
+<ul>
+<li>HC2</li>
+</ul>
 <p>```@example Tutorial
 vcov(model, :HC2)</p>
 <pre><code>
+
+  * HC3
+
 
 ```@example Tutorial
 vcov(model, :HC3)
 </code></pre>
 
 <p>Two-ways clustering returns <code>V, rdf</code> where <code>V</code> is the variance covariance estimate and <code>rdf</code> is the <code>dof_residual</code> based on the error structure.</p>
+<ul>
+<li>CRVE1</li>
+</ul>
 <p>```@example Tutorial
 V, rdf = vcov(model, :HC1)
 V</p>
 <pre><code>
+
+  * CRVE2
+
 
 ```@example Tutorial
 V, rdf = vcov(model, :HC2)
 V
 </code></pre>
 
+<ul>
+<li>CRVE3</li>
+</ul>
 <p><code>@example Tutorial
 V, rdf = vcov(model, :HC3)
 V</code></p>
