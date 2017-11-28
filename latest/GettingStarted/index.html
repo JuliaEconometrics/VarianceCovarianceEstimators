@@ -136,7 +136,7 @@
 
 <p><a id='For-Package-Developers-1'></a></p>
 <h2 id="for-package-developers">For Package Developers</h2>
-<p>This package provides a simple API for package developers to have access to a variety of variance covariance estimators. The struct should be $&lt;: StatsBase.RegressionModel$ and have the following methods implemented.</p>
+<p>This package provides a simple API for package developers to have access to a variety of variance covariance estimators. The struct should be <code>&lt;: StatsBase.RegressionModel</code> and have the following methods implemented.</p>
 <pre><code>StatsBase.modelmatrix(obj::StatsBase.RegressionModel)
 StatsBase.residuals(obj::StatsBase.RegressionModel)
 </code></pre>
@@ -155,7 +155,7 @@ end
 </code></pre>
 
 <p>The residual degrees of freedom will depend on the (1) effective number of observations if using some weighting scheme and (2) the effective degrees of freedom (account for intercept, absorbed fixed effects, and regularization).</p>
-<p>In addition to $StatsBase$ methods the package has two more methods that can be used:</p>
+<p>In addition to <code>StatsBase</code> methods the package has two more methods that can be used:</p>
 <pre><code>function bread(obj::StatsBase.RegressionModel)
     mm = StatsBase.modelmatrix(obj)
     output = inv(cholfact!(mm.'mm))
@@ -164,7 +164,7 @@ end
 clusters(obj::StatsBase.RegressionModel) = Vector{Vector{Int64}}()
 </code></pre>
 
-<p>The function $bread$ can be overwritten with a cached object stored during the fitting process to avoid computing the inverse again or modified to allow for Ridge Regression</p>
+<p>The function <code>bread</code> can be overwritten with a cached object stored during the fitting process to avoid computing the inverse again or modified to allow for Ridge Regression</p>
 <pre><code>function bread(obj::MyPkg.MyStruct)
     Γ = getfield(obj, :Γ)
     mm = StatsBase.modelmatrix(obj)
@@ -173,7 +173,7 @@ clusters(obj::StatsBase.RegressionModel) = Vector{Vector{Int64}}()
 end
 </code></pre>
 
-<p>Clusters can be specified by $Clusters[Dimension[Cluster[Observations]]]$ of type $Vector{Vector{Vector{T}}} where T &lt;: Integer$.</p>
+<p>Clusters can be specified by <code>Clusters[Dimension[Cluster[Observations]]]</code> of type <code>Vector{Vector{Vector{T}}} where T &lt;: Integer</code>.</p>
               
             </div>
           </div>
