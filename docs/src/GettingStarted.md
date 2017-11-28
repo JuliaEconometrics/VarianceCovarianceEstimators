@@ -15,7 +15,7 @@ Pkg.add("VarianceCovarianceEstimators")
 ## For Package Developers
 
 This package provides a simple API for package developers to have access to a variety
-of variance covariance estimators. The struct should be ``<: StatsBase.RegressionModel``
+of variance covariance estimators. The struct should be ```<: StatsBase.RegressionModel```
 and have the following methods implemented.
 
 ```
@@ -45,7 +45,7 @@ The residual degrees of freedom will depend on the (1) effective number of obser
 if using some weighting scheme and (2) the effective degrees of freedom (account for intercept,
 absorbed fixed effects, and regularization).
 
-In addition to ``StatsBase`` methods the package has two more methods that can be used:
+In addition to ```StatsBase``` methods the package has two more methods that can be used:
 ```
 function bread(obj::StatsBase.RegressionModel)
 	mm = StatsBase.modelmatrix(obj)
@@ -54,7 +54,7 @@ function bread(obj::StatsBase.RegressionModel)
 end
 clusters(obj::StatsBase.RegressionModel) = Vector{Vector{Int64}}()
 ```
-The function ``bread`` can be overwritten with a cached object stored during the fitting
+The function ```bread``` can be overwritten with a cached object stored during the fitting
 process to avoid computing the inverse again or modified to allow for Ridge Regression
 ```
 function bread(obj::MyPkg.MyStruct)
@@ -64,5 +64,5 @@ function bread(obj::MyPkg.MyStruct)
 	return output
 end
 ```
-Clusters can be specified by ``Clusters[Dimension[Cluster[Observations]]]`` of type
-``Vector{Vector{Vector{T}}} where T <: Integer``.
+Clusters can be specified by ```Clusters[Dimension[Cluster[Observations]]]``` of type
+```Vector{Vector{Vector{T}}} where T <: Integer```.
