@@ -2,7 +2,7 @@
 using Documenter, VarianceCovarianceEstimators
 
 makedocs(
-    format = :html,
+    # format = :html,
     sitename = "VarianceCovarianceEstimators.jl",
     pages = [
         "index.md",
