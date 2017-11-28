@@ -12,7 +12,9 @@ notifications:
 #  - julia -e 'Pkg.clone(pwd()); Pkg.build("VarianceCovarianceEstimators"); Pkg.test("VarianceCovarianceEstimators"; coverage=true)'
 after_success:
   # push coverage results to Codecov
-  - julia -e 'cd(Pkg.dir("VarianceCovarianceEstimators")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+  - julia -e 'cd(Pkg.dir("VarianceCovarianceEstimators"))'
+  - julia -e 'Pkg.clone("https://github.com/Nosferican/Requests.jl")'
+  - julia -e 'Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
   # push documentation
   - julia -e 'Pkg.clone("https://github.com/Nosferican/Documenter.jl")'
   - julia -e 'Pkg.add("DataFrames")'

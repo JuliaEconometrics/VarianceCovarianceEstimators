@@ -30,17 +30,22 @@ groups = EconUtils.makegroups(df[[:PID, :TID]])
 ```@example Tutorial
 vcov(model, :OLS)
 ```
+
 ```@example Tutorial
 vcov(model, :HC1)
 ```
+
 ```@example Tutorial
 vcov(model, :HC2)
 ```
+
 ```@example Tutorial
 vcov(model, :HC3)
 ```
+
 Two-ways clustering returns `V, rdf` where `V` is the variance covariance estimate
 and `rdf` is the `dof_residual` based on the error structure.
+
 ```@setup Tutorial
 VarianceCovarianceEstimators.clusters(obj::MyModel) = groups
 ```
@@ -49,10 +54,12 @@ VarianceCovarianceEstimators.clusters(obj::MyModel) = groups
 V, rdf = vcov(model, :HC1)
 V
 ```
+
 ```@example Tutorial
 V, rdf = vcov(model, :HC2)
 V
 ```
+
 ```@example Tutorial
 V, rdf = vcov(model, :HC3)
 V
