@@ -52,12 +52,12 @@
         }, 
         {
             "location": "/Examples/", 
-            "text": "Examples\n\n\n\n\nOLS\n\n\n\n\n```@example Tutorial\nvcov(model, :OLS)\n\n\n\n\n  * HC1\n\n\n```@example Tutorial\nvcov(model, :HC1)\n\n\n\n\n\n\nHC2\n\n\n\n\n```@example Tutorial\nvcov(model, :HC2)\n\n\n\n\n  * HC3\n\n\n```@example Tutorial\nvcov(model, :HC3)\n\n\n\n\nTwo-ways clustering returns \nV, rdf\n where \nV\n is the variance covariance estimate and \nrdf\n is the \ndof_residual\n based on the error structure.\n\n\n\n\nCRVE1\n\n\n\n\n```@example Tutorial\nV, rdf = vcov(model, :HC1)\nV\n\n\n\n\n  * CRVE2\n\n\n```@example Tutorial\nV, rdf = vcov(model, :HC2)\nV\n\n\n\n\n\n\nCRVE3\n\n\n\n\n@example Tutorial\nV, rdf = vcov(model, :HC3)\nV", 
+            "text": "Examples\n\n\n\n\nOLS\n\n\n\n\n```@example Tutorial\nvcov(model, :OLS)\n\n\n\n\n  * HC1\n\n\n```@example Tutorial\nvcov(model, :HC1)\n\n\n\n\n\n\nHC2\n\n\n\n\n```@example Tutorial\nvcov(model, :HC2)\n\n\n\n\n  * HC3\n\n\n```@example Tutorial\nvcov(model, :HC3)\n\n\n\n\nTwo-ways clustering returns \nV, rdf\n where \nV\n is the variance covariance estimate and \nrdf\n is the \ndof_residual\n based on the error structure.\n\n\n\n\nCRVE1\n\n\n\n\n```@example Tutorial\n\n\nV, rdf = vcov(model, :HC1)\nprint(V)\n\n\n\n\n  * CRVE2\n\n\n```@example Tutorial\n\nV, rdf = vcov(model, :HC2)\nprint(V)\n\n\n\n\n\n\n\nCRVE3\n\n\n\n\n```@example Tutorial\n\n\nV, rdf = vcov(model, :HC3)\nprint(V)\n\n\n```", 
             "title": "Examples"
         }, 
         {
             "location": "/Examples/#examples", 
-            "text": "OLS   ```@example Tutorial\nvcov(model, :OLS)  \n\n  * HC1\n\n\n```@example Tutorial\nvcov(model, :HC1)   HC2   ```@example Tutorial\nvcov(model, :HC2)  \n\n  * HC3\n\n\n```@example Tutorial\nvcov(model, :HC3)  Two-ways clustering returns  V, rdf  where  V  is the variance covariance estimate and  rdf  is the  dof_residual  based on the error structure.   CRVE1   ```@example Tutorial\nV, rdf = vcov(model, :HC1)\nV  \n\n  * CRVE2\n\n\n```@example Tutorial\nV, rdf = vcov(model, :HC2)\nV   CRVE3   @example Tutorial\nV, rdf = vcov(model, :HC3)\nV", 
+            "text": "OLS   ```@example Tutorial\nvcov(model, :OLS)  \n\n  * HC1\n\n\n```@example Tutorial\nvcov(model, :HC1)   HC2   ```@example Tutorial\nvcov(model, :HC2)  \n\n  * HC3\n\n\n```@example Tutorial\nvcov(model, :HC3)  Two-ways clustering returns  V, rdf  where  V  is the variance covariance estimate and  rdf  is the  dof_residual  based on the error structure.   CRVE1   ```@example Tutorial  V, rdf = vcov(model, :HC1)\nprint(V)  \n\n  * CRVE2\n\n\n```@example Tutorial\n\nV, rdf = vcov(model, :HC2)\nprint(V)   CRVE3   ```@example Tutorial  V, rdf = vcov(model, :HC3)\nprint(V)  ```", 
             "title": "Examples"
         }, 
         {

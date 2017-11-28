@@ -148,25 +148,28 @@ vcov(model, :HC3)
 <ul>
 <li>CRVE1</li>
 </ul>
-<p>```@example Tutorial
-V, rdf = vcov(model, :HC1)
-V</p>
+<p>```@example Tutorial</p>
+<p>V, rdf = vcov(model, :HC1)
+print(V)</p>
 <pre><code>
 
   * CRVE2
 
 
 ```@example Tutorial
+
 V, rdf = vcov(model, :HC2)
-V
+print(V)
+
 </code></pre>
 
 <ul>
 <li>CRVE3</li>
 </ul>
-<p><code>@example Tutorial
-V, rdf = vcov(model, :HC3)
-V</code></p>
+<p>```@example Tutorial</p>
+<p>V, rdf = vcov(model, :HC3)
+print(V)</p>
+<p>```</p>
               
             </div>
           </div>
