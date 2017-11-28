@@ -1,0 +1,74 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "VarianceCovarianceEstimators.jl Documentation\n\n\nVarianceCovarianceEstimators.jl\n allows estimation of variance covariance matrices for \nStatsBase.RegressionModel\n.\n\n\n\n\nGetting Started\n\n\nInstallation\n\n\nFor Package Developers\n\n\n\n\n\n\nAPI\n\n\nEstimators\n\n\nvcov\n\n\n\n\n\n\nExamples\n\n\nReferences", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#variancecovarianceestimatorsjl-documentation", 
+            "text": "VarianceCovarianceEstimators.jl  allows estimation of variance covariance matrices for  StatsBase.RegressionModel .   Getting Started  Installation  For Package Developers    API  Estimators  vcov    Examples  References", 
+            "title": "VarianceCovarianceEstimators.jl Documentation"
+        }, 
+        {
+            "location": "/GettingStarted/", 
+            "text": "Getting Started\n\n\n\n\nInstallation\n\n\nDuring the Beta test stage the package can be installed using:\n\n\nPkg.clone(\nhttps://github.com/JuliaEconometrics/VarianceCovarianceEstimators.jl.git\n)\n\n\n\n\nOnce it is released you it may be installed using:\n\n\nPkg.add(\nVarianceCovarianceEstimators\n)\n\n\n\n\n\n\nFor Package Developers\n\n\nThis package provides a simple API for package developers to have access to a variety of variance covariance estimators. The struct should be \n: StatsBase.RegressionModel\n and have the following methods implemented.\n\n\nStatsBase.modelmatrix(obj::StatsBase.RegressionModel)\nStatsBase.residuals(obj::StatsBase.RegressionModel)\n\n\n\n\nThe model matrix should be the matrix used for the parameter estimates. This implies that for instrumental variable methods it should be the instrumented matrix. If the model uses weights the model matrix should be weighted. For instrumental variables, the residuals should be calculated using the matrix with the endogenous variables.\n\n\nIn addition several methods have a default behavior which may need to be overwritten:\n\n\nfunction StatsBase.dof_residual(obj::StatsBase.RegressionModel)\n    reduce(-, size(StatsBase.modelmatrix(obj)))\nend\nfunction StatsBase.deviance(obj::StatsBase.RegressionModel)\n    StatsBase.residuals(obj).'StatsBase.residuals(obj) / StatsBase.dof_residual(obj)\nend\nfunction StatsBase.nobs(obj::StatsBase.RegressionModel)\n    length(StatsBase.residuals(obj))\nend\n\n\n\n\nThe residual degrees of freedom will depend on the (1) effective number of observations if using some weighting scheme and (2) the effective degrees of freedom (account for intercept, absorbed fixed effects, and regularization).\n\n\nIn addition to \nStatsBase\n methods the package has two more methods that can be used:\n\n\nfunction bread(obj::StatsBase.RegressionModel)\n    mm = StatsBase.modelmatrix(obj)\n    output = inv(cholfact!(mm.'mm))\n    return output\nend\nclusters(obj::StatsBase.RegressionModel) = Vector{Vector{Int64}}()\n\n\n\n\nThe function \nbread\n can be overwritten with a cached object stored during the fitting process to avoid computing the inverse again or modified to allow for Ridge Regression\n\n\nfunction bread(obj::MyPkg.MyStruct)\n    \u0393 = getfield(obj, :\u0393)\n    mm = StatsBase.modelmatrix(obj)\n    output = inv(cholfact!(mm.'mm + \u0393))\n    return output\nend\n\n\n\n\nClusters can be specified by \nClusters[Dimension[Cluster[Observations]]]\n of type \nVector{Vector{Vector{T}}} where T \n: Integer\n.", 
+            "title": "Getting Started"
+        }, 
+        {
+            "location": "/GettingStarted/#getting-started", 
+            "text": "", 
+            "title": "Getting Started"
+        }, 
+        {
+            "location": "/GettingStarted/#installation", 
+            "text": "During the Beta test stage the package can be installed using:  Pkg.clone( https://github.com/JuliaEconometrics/VarianceCovarianceEstimators.jl.git )  Once it is released you it may be installed using:  Pkg.add( VarianceCovarianceEstimators )", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/GettingStarted/#for-package-developers", 
+            "text": "This package provides a simple API for package developers to have access to a variety of variance covariance estimators. The struct should be  : StatsBase.RegressionModel  and have the following methods implemented.  StatsBase.modelmatrix(obj::StatsBase.RegressionModel)\nStatsBase.residuals(obj::StatsBase.RegressionModel)  The model matrix should be the matrix used for the parameter estimates. This implies that for instrumental variable methods it should be the instrumented matrix. If the model uses weights the model matrix should be weighted. For instrumental variables, the residuals should be calculated using the matrix with the endogenous variables.  In addition several methods have a default behavior which may need to be overwritten:  function StatsBase.dof_residual(obj::StatsBase.RegressionModel)\n    reduce(-, size(StatsBase.modelmatrix(obj)))\nend\nfunction StatsBase.deviance(obj::StatsBase.RegressionModel)\n    StatsBase.residuals(obj).'StatsBase.residuals(obj) / StatsBase.dof_residual(obj)\nend\nfunction StatsBase.nobs(obj::StatsBase.RegressionModel)\n    length(StatsBase.residuals(obj))\nend  The residual degrees of freedom will depend on the (1) effective number of observations if using some weighting scheme and (2) the effective degrees of freedom (account for intercept, absorbed fixed effects, and regularization).  In addition to  StatsBase  methods the package has two more methods that can be used:  function bread(obj::StatsBase.RegressionModel)\n    mm = StatsBase.modelmatrix(obj)\n    output = inv(cholfact!(mm.'mm))\n    return output\nend\nclusters(obj::StatsBase.RegressionModel) = Vector{Vector{Int64}}()  The function  bread  can be overwritten with a cached object stored during the fitting process to avoid computing the inverse again or modified to allow for Ridge Regression  function bread(obj::MyPkg.MyStruct)\n    \u0393 = getfield(obj, :\u0393)\n    mm = StatsBase.modelmatrix(obj)\n    output = inv(cholfact!(mm.'mm + \u0393))\n    return output\nend  Clusters can be specified by  Clusters[Dimension[Cluster[Observations]]]  of type  Vector{Vector{Vector{T}}} where T  : Integer .", 
+            "title": "For Package Developers"
+        }, 
+        {
+            "location": "/ModelAPI/", 
+            "text": "API\n\n\n\n\nEstimators\n\n\nThe available estimators are heteroskedasticity consistent (Eicker 1967; Huber 1967; White 1980) in their multiway-way (Colin Cameron, Gelbach, and Miller 2011) cluster robust (Liang and Zeger 1986; Arellano 1987; Rogers 1993) versions. The estimators HC1, HC2, HC3 (MacKinnon and White 1985) and their cluster robust versions (Bell and McCaffrey 2002).\n\n\n\n\nvcov\n\n\nOne can access a variance covariance estimate using the following syntax:\n\n\nvcov(model::StatsBase.RegressionModel, estimator::Symbol)\n\n\n\n\nwere the estimators can be: \n:OLS, :HC1, :HC2, :HC3\n. The methods adapt to the error structure given by \nclusters(obj::StatsBase.RegressionModel)\n.", 
+            "title": "Model API"
+        }, 
+        {
+            "location": "/ModelAPI/#api", 
+            "text": "", 
+            "title": "API"
+        }, 
+        {
+            "location": "/ModelAPI/#estimators", 
+            "text": "The available estimators are heteroskedasticity consistent (Eicker 1967; Huber 1967; White 1980) in their multiway-way (Colin Cameron, Gelbach, and Miller 2011) cluster robust (Liang and Zeger 1986; Arellano 1987; Rogers 1993) versions. The estimators HC1, HC2, HC3 (MacKinnon and White 1985) and their cluster robust versions (Bell and McCaffrey 2002).", 
+            "title": "Estimators"
+        }, 
+        {
+            "location": "/ModelAPI/#vcov", 
+            "text": "One can access a variance covariance estimate using the following syntax:  vcov(model::StatsBase.RegressionModel, estimator::Symbol)  were the estimators can be:  :OLS, :HC1, :HC2, :HC3 . The methods adapt to the error structure given by  clusters(obj::StatsBase.RegressionModel) .", 
+            "title": "vcov"
+        }, 
+        {
+            "location": "/Examples/", 
+            "text": "Examples\n\n\n```@example Tutorial\nvcov(model, :OLS)\n\n\n\n\n```@example Tutorial\nvcov(model, :HC1)\n\n\n\n\n```@example Tutorial\nvcov(model, :HC2)\n\n\n\n\n```@example Tutorial\nvcov(model, :HC3)\n\n\n\n\nTwo-ways clustering returns \nV, rdf\n where \nV\n is the variance covariance estimate and \nrdf\n is the \ndof_residual\n based on the error structure.\n\n\n```@example Tutorial\nV, rdf = vcov(model, :HC1)\nV\n\n\n\n\n```@example Tutorial\nV, rdf = vcov(model, :HC2)\nV\n\n\n\n\n@example Tutorial\nV, rdf = vcov(model, :HC3)\nV", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/Examples/#examples", 
+            "text": "```@example Tutorial\nvcov(model, :OLS)  \n\n```@example Tutorial\nvcov(model, :HC1)  ```@example Tutorial\nvcov(model, :HC2)  \n\n```@example Tutorial\nvcov(model, :HC3)  Two-ways clustering returns  V, rdf  where  V  is the variance covariance estimate and  rdf  is the  dof_residual  based on the error structure.  ```@example Tutorial\nV, rdf = vcov(model, :HC1)\nV  \n\n```@example Tutorial\nV, rdf = vcov(model, :HC2)\nV  @example Tutorial\nV, rdf = vcov(model, :HC3)\nV", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/References/", 
+            "text": "References\n\n\nArellano, Manuel. 1987. \"Computing Robust Standard Errors for Within-groups Estimators.\" \nOxford Bulletin of Economics and Statistics\n 49 (4): 431\u2013434. doi:\n10.1111/j.1468- 0084.1987.mp49004006.x\n.\n\n\nBell, Robert M., and Daniel F. McCaffrey. 2002. \"Bias Reduction in Standard Errors for Linear Regression with Multi- Stage Samples.\" \nSurvey Methodology\n 28(2):169\u201379. \nhttps://statcan.gc.ca/olc-cel/olc.action?ObjId=12-001-X20020029058\nObjType=47\n\n\nColin Cameron, A., Jonah B. Gelbach, and Douglas L. Miller. 2011. \"Robust Inference With Multiway Clustering.\" \nJournal of Business \n Economic Statistics\n 29 (2): 238\u2013249. doi:\n10.1198/jbes.2010.07136\n.\n\n\nEicker, Friedhelm. 1967. \"Limit theorems for regressions with unequal and dependent errors.\" In \nProceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability, Volume 1: Statistics\n, 59\u201382. Berkeley, California: University of California Press. \nhttps://projecteuclid.org/euclid.bsmsp/1200512981\n.\n\n\nHuber, Peter J. 1967. \"The behavior of maximum likelihood estimates under nonstandard conditions.\" In \nProceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability, Volume 1: Statistics\n, 221\u2013233. Berkeley, California: University of California Press. \nhttps://projecteuclid.org/euclid.bsmsp/1200512988\n.\n\n\nLiang, Kung-Yee, and Scott L. Zeger. 1986. \"Longitudinal data analysis using generalized linear models.\" \nBiometrika\n 73 (1): 13\u201322. doi:\n10.1093/biomet/73.1.13\n.\n\n\nMacKinnon, James G, and Halbert White. 1985. \"Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties.\" \nJournal of Econometrics\n 29 (3): 305\u2013325. doi:\n10.1016/0304-4076(85)90158-7\n.\n\n\nRogers, William. 1993. \"Regression standard errors in clustered samples.\" \nStata Technical Bulletin\n 13 (17): 19\u201323. \nhttps://www.stata.com/products/stb/journals/stb13.pdf\n.\n\n\nWhite, Halbert. 1980. \"A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.\" \nEconometrica\n 48 (4): 817. doi:\n10.2307/1912934\n.", 
+            "title": "References"
+        }, 
+        {
+            "location": "/References/#references", 
+            "text": "Arellano, Manuel. 1987. \"Computing Robust Standard Errors for Within-groups Estimators.\"  Oxford Bulletin of Economics and Statistics  49 (4): 431\u2013434. doi: 10.1111/j.1468- 0084.1987.mp49004006.x .  Bell, Robert M., and Daniel F. McCaffrey. 2002. \"Bias Reduction in Standard Errors for Linear Regression with Multi- Stage Samples.\"  Survey Methodology  28(2):169\u201379.  https://statcan.gc.ca/olc-cel/olc.action?ObjId=12-001-X20020029058 ObjType=47  Colin Cameron, A., Jonah B. Gelbach, and Douglas L. Miller. 2011. \"Robust Inference With Multiway Clustering.\"  Journal of Business   Economic Statistics  29 (2): 238\u2013249. doi: 10.1198/jbes.2010.07136 .  Eicker, Friedhelm. 1967. \"Limit theorems for regressions with unequal and dependent errors.\" In  Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability, Volume 1: Statistics , 59\u201382. Berkeley, California: University of California Press.  https://projecteuclid.org/euclid.bsmsp/1200512981 .  Huber, Peter J. 1967. \"The behavior of maximum likelihood estimates under nonstandard conditions.\" In  Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability, Volume 1: Statistics , 221\u2013233. Berkeley, California: University of California Press.  https://projecteuclid.org/euclid.bsmsp/1200512988 .  Liang, Kung-Yee, and Scott L. Zeger. 1986. \"Longitudinal data analysis using generalized linear models.\"  Biometrika  73 (1): 13\u201322. doi: 10.1093/biomet/73.1.13 .  MacKinnon, James G, and Halbert White. 1985. \"Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties.\"  Journal of Econometrics  29 (3): 305\u2013325. doi: 10.1016/0304-4076(85)90158-7 .  Rogers, William. 1993. \"Regression standard errors in clustered samples.\"  Stata Technical Bulletin  13 (17): 19\u201323.  https://www.stata.com/products/stb/journals/stb13.pdf .  White, Halbert. 1980. \"A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.\"  Econometrica  48 (4): 817. doi: 10.2307/1912934 .", 
+            "title": "References"
+        }
+    ]
+}
