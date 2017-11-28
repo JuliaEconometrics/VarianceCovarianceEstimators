@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples · UEM.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>UEM.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">VarianceCovarianceEstimators.jl Documentation</a></li><li><a class="toctext" href="GettingStarted.html">Getting Started</a></li><li><a class="toctext" href="ModelAPI.html">API</a></li><li class="current"><a class="toctext" href="Examples.html">Examples</a><ul class="internal"></ul></li><li><a class="toctext" href="References.html">References</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="Examples.html">Examples</a></li></ul><a class="edit-page" href="https://github.com/JuliaEconometrics/VarianceCovarianceEstimators.jl/blob/master/docs/src/Examples.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Examples</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Examples-1" href="#Examples-1">Examples</a></h1><div></div><div><pre><code class="language-julia">vcov(model, :OLS)</code></pre><pre><code class="language-none">4×4 Array{Float64,2}:
+  0.0194882  -0.0108421    -0.0137318   -0.012001
+ -0.0108421   0.0179593     0.00259367   0.000940701
+ -0.0137318   0.00259367    0.0216219    0.00371975
+ -0.012001    0.000940701   0.00371975   0.0207911</code></pre></div><div><pre><code class="language-julia">vcov(model, :HC1)</code></pre><pre><code class="language-none">4×4 Array{Float64,2}:
+  0.0225953  -0.0132238   -0.0168062  -0.0130633
+ -0.0132238   0.0183607    0.0033488   0.00451041
+ -0.0168062   0.0033488    0.0256802   0.0055025
+ -0.0130633   0.00451041   0.0055025   0.0178279</code></pre></div><div><pre><code class="language-julia">vcov(model, :HC2)</code></pre><pre><code class="language-none">4×4 Array{Float64,2}:
+  0.0228941  -0.0133848   -0.0170258   -0.0132469
+ -0.0133848   0.0185044    0.00341252   0.00458796
+ -0.0170258   0.00341252   0.0259233    0.00560879
+ -0.0132469   0.00458796   0.00560879   0.0180105</code></pre></div><div><pre><code class="language-julia">vcov(model, :HC3)</code></pre><pre><code class="language-none">4×4 Array{Float64,2}:
+  0.02417    -0.0141159   -0.0179722   -0.0139963
+ -0.0141159   0.0194303    0.00362422   0.00486252
+ -0.0179722   0.00362422   0.0272652    0.0059569
+ -0.0139963   0.00486252   0.0059569    0.0189572</code></pre></div><p>Two-ways clustering returns <code>V, rdf</code> where <code>V</code> is the variance covariance estimate and <code>rdf</code> is the <code>dof_residual</code> based on the error structure.</p><div></div><div><pre><code class="language-julia">V, rdf = vcov(model, :HC1)
+V</code></pre><pre><code class="language-none">4×4 Array{Float64,2}:
+  0.0397154   -0.0185192   -0.00983352  -0.0419261
+ -0.0185192    0.0220154   -0.00520504   0.0261645
+ -0.00983352  -0.00520504   0.0233224    0.0127629
+ -0.0419261    0.0261645    0.0127629    0.0408529</code></pre></div><div><pre><code class="language-julia">V, rdf = vcov(model, :HC2)
+V</code></pre><pre><code class="language-none">4×4 Array{Float64,2}:
+  0.0527369  -0.023502    -0.0137535   -0.0558554
+ -0.023502    0.0270918   -0.00664753   0.0336205
+ -0.0137535  -0.00664753   0.0299603    0.017588
+ -0.0558554   0.0336205    0.017588     0.0543496</code></pre></div><div><pre><code class="language-julia">V, rdf = vcov(model, :HC3)
+V</code></pre><pre><code class="language-none">4×4 Array{Float64,2}:
+  0.070778   -0.0300476   -0.019677    -0.075106
+ -0.0300476   0.0333185   -0.00836899   0.0435113
+ -0.019677   -0.00836899   0.0391379    0.0246247
+ -0.075106    0.0435113    0.0246247    0.0729389</code></pre></div><footer><hr/><a class="previous" href="ModelAPI.html"><span class="direction">Previous</span><span class="title">API</span></a><a class="next" href="References.html"><span class="direction">Next</span><span class="title">References</span></a></footer></article></body></html>
