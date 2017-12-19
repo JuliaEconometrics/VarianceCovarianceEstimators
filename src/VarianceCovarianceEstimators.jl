@@ -90,8 +90,12 @@ function vcov(model::RegressionModel,
 end
 
 ## Helper
-meat(estimator::HC1, X::AbstractMatrix, û::AbstractVector) = X.' * Diagonal(û.^2) * X
-meat(estimator::HC2, X::AbstractMatrix, û::AbstractVector) = X.' * Diagonal(û.^2 ./ (1 .- diag(X * pinv(X)))) * X
-meat(estimator::HC3, X::AbstractMatrix, û::AbstractVector) = X.' * Diagonal((û ./ (1 .- diag(X * pinv(X)))).^2) * X
+
+gram(obj::AbstractMatrix) = obj'obj
+hatvalues(X::AbstractMatrix) = diag(X * pinv(X))
+
+meat(estimator::HC1, X::AbstractMatrix, û::AbstractVector) = gram(abs.(û) .* X)
+meat(estimator::HC2, X::AbstractMatrix, û::AbstractVector) = gram(abs.(û) ./ sqrt.(broadcast(-, 1., hatvalues(X))) .* X)
+meat(estimator::HC3, X::AbstractMatrix, û::AbstractVector) = gram(abs.(û) ./ broadcast(-, 1., hatvalues(X)) .* X)
 
 end
